@@ -64,3 +64,19 @@ void pall(stack_t **stack, unsigned int line_number)
 		node = node->next;
 	}
 }
+
+/**
+ * pint - prints the value at the top of the stack.
+ * @stack: a stack_t type linked list.
+ * @line_number: the line number of the line of string
+ *	from the file whose commands will be processed.
+ */
+void pint(stack_t **stack, unsigned int line_number)
+{
+	if (stack == NULL || *stack == NULL)
+	{
+		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	printf("PINT====>%d\n", (*stack)->n);
+}

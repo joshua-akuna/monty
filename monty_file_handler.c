@@ -48,6 +48,7 @@ int find_opcode(stack_t **stack, char *line, int num)
 	instruction_t opcodes[] = {
 		{"push", push},
 		{"pall", pall},
+		{"pint", pint},
 		{NULL, NULL},
 	};
 	int i = 0, found;
