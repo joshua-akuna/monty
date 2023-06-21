@@ -1,6 +1,13 @@
 #ifndef _MONTY_H_
 #define _MONTY_H_
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+
+extern char *filename;
+
 /**
  * struct stack_s - represents a node of a doubly linked list
  *	(a stack or queue).
@@ -32,4 +39,15 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+
+int read_file(stack_t **stack);
+void find_opcode(stack_t **stack, char *line, int num);
+int is_valid_num(char *num);
+char *get_line_by_number(unsigned int line_number);
+
+void push(stack_t **stack, unsigned int line_number);
+void pall(stack_t **stack, unsigned int line_number);
+
+stack_t *add_to_stack(stack_t **head, const int n);
+void free_stack(stack_t *head);
 #endif /* _MONTY_H_ */
