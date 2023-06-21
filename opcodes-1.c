@@ -80,3 +80,22 @@ void pint(stack_t **stack, unsigned int line_number)
 	}
 	printf("%d\n", (*stack)->n);
 }
+
+/**
+ * pop - removes the top element of the stack.
+ * @stack: a stack_t type linked list.
+ * @line_number: the line number of the line of string
+ *	from the file whose commands will be processed.
+ */
+void pop(stack_t **stack, unsigned int line_number)
+{
+	stack_t *del = *stack;
+
+	if (stack == NULL || *stack == NULL)
+	{
+		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	*stack = (*stack)->next;
+	free(del);
+}

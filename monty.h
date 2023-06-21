@@ -48,6 +48,7 @@ char *get_line_by_number(unsigned int line_number);
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
 void pint(stack_t **stack, unsigned int line_number);
+void pop(stack_t **stack, unsigned int line_number);
 
 stack_t *add_to_stack(stack_t **head, const int n);
 void free_stack(stack_t *head);

@@ -49,6 +49,7 @@ int find_opcode(stack_t **stack, char *line, int num)
 		{"push", push},
 		{"pall", pall},
 		{"pint", pint},
+		{"pop", pop},
 		{NULL, NULL},
 	};
 	int i = 0, found;
