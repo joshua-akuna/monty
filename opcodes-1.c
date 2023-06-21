@@ -19,7 +19,7 @@ void push(stack_t **stack, unsigned int line_number)
 		tok = strtok(NULL, "\t \n");
 		if (tok == NULL || is_valid_num(tok) == 0)
 		{
-			fprintf(stderr, "L%d: usage: push integer", line_number);
+			fprintf(stderr, "L%d: usage: push integer\n", line_number);
 			free(line);
 			free_stack(node);
 			exit(EXIT_FAILURE);
