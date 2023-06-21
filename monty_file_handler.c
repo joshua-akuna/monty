@@ -70,14 +70,13 @@ int find_opcode(stack_t **stack, char *line, int num)
 				break;
 			}
 		}
-
-	}
-	if (!found)
-	{
-		fprintf(stderr, "L%d: unknown instruction %s\n", num, opcode);
-		free(line);
-		free_stack(*stack);
-		return (EXIT_FAILURE);
+		if (!found)
+		{
+			fprintf(stderr, "L%d: unknown instruction %s\n", num, opcode);
+			free(line);
+			free_stack(*stack);
+			return (EXIT_FAILURE);
+		}
 	}
 	return (EXIT_SUCCESS);
 }
