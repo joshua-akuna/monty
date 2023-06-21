@@ -99,3 +99,15 @@ void pop(stack_t **stack, unsigned int line_number)
 	*stack = (*stack)->next;
 	free(del);
 }
+
+/**
+ * nop - does nothing.
+ * @stack: a stack_t type linked list.
+ * @line_number: the line number of the line of string
+ *	from the file whose commands will be processed.
+ */
+void nop(stack_t **stack, unsigned int line_number)
+{
+	(void)stack;
+	(void)line_number;
+}
