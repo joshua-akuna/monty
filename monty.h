@@ -41,7 +41,7 @@ typedef struct instruction_s
 
 
 int read_file(stack_t **stack);
-void find_opcode(stack_t **stack, char *line, int num);
+int find_opcode(stack_t **stack, char *line, int num);
 int is_valid_num(char *num);
 char *get_line_by_number(unsigned int line_number);
 

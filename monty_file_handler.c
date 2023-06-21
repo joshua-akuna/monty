@@ -22,7 +22,11 @@ int read_file(stack_t **stack)
 
 	while ((nread = getline(&line, &len, stream)) != -1)
 	{
-		find_opcode(stack, line, num);
+		if (find_opcode(stack, line, num) == EXIT_FAILURE)
+		{
+			fclose(stream);
+			exit(EXIT_FAILURE);
+		}
 		num++;
 	}
 	free(line);
@@ -37,28 +41,42 @@ int read_file(stack_t **stack)
  * @stack: a stack_t type linked list.
  * @line: the string to process.
  * @num: the line number of line in the file.
+ * Return: EXIT_SUCCESS if successful else EXIT_FAILURE.
  */
-void find_opcode(stack_t **stack, char *line, int num)
+int find_opcode(stack_t **stack, char *line, int num)
 {
 	instruction_t opcodes[] = {
 		{"push", push},
 		{"pall", pall},
 		{NULL, NULL},
 	};
-	int i = 0;
+	int i = 0, found;
 	char *opcode = NULL;
 
+	(void)found;
 	opcode = strtok(line, "\t \n");
 	if (opcode != NULL)
 	{
-		for (i = 0; opcodes[i].opcode != NULL; i++)
+		for (i = 0; opcodes[i].opcode; i++)
 		{
+			found = 0;
 			if (strncmp(opcodes[i].opcode, opcode, strlen(opcode)) == 0)
 			{
 				opcodes[i].f(stack, num);
+				found = 1;
+				break;
 			}
 		}
+
 	}
+	if (!found)
+	{
+		fprintf(stderr, "L%d: unknown instruction %s\n", num, opcode);
+		free(line);
+		free_stack(*stack);
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
 }
 
 /**
