@@ -60,22 +60,27 @@ int find_opcode(stack_t **stack, char *line, int num)
 	opcode = strtok(line, "\t \n");
 	if (opcode != NULL)
 	{
-		for (i = 0; opcodes[i].opcode; i++)
+		if (opcode[0] == '#' || strncmp(opcode, "nop", strlen(opcode)) == 0)
+			;
+		else
 		{
-			found = 0;
-			if (strncmp(opcodes[i].opcode, opcode, strlen(opcode)) == 0)
+			for (i = 0; opcodes[i].opcode; i++)
 			{
-				opcodes[i].f(stack, num);
-				found = 1;
-				break;
+				found = 0;
+				if (strncmp(opcodes[i].opcode, opcode, strlen(opcode)) == 0)
+				{
+					opcodes[i].f(stack, num);
+					found = 1;
+					break;
+				}
 			}
-		}
-		if (!found)
-		{
-			fprintf(stderr, "L%d: unknown instruction %s\n", num, opcode);
-			free(line);
-			free_stack(*stack);
-			return (EXIT_FAILURE);
+			if (!found)
+			{
+				fprintf(stderr, "L%d: unknown instruction %s\n", num, opcode);
+				free(line);
+				free_stack(*stack);
+				return (EXIT_FAILURE);
+			}
 		}
 	}
 	return (EXIT_SUCCESS);
