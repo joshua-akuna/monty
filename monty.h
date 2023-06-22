@@ -53,6 +53,8 @@ void nop(stack_t **stack, unsigned int line_number);
 
 void swap(stack_t **stack, unsigned int line_number);
 
+void add(stack_t **stack, unsigned int line_number);
+
 stack_t *add_to_stack(stack_t **head, const int n);
 void free_stack(stack_t *head);
 #endif /* _MONTY_H_ */

@@ -6,8 +6,6 @@
  */
 void swap(stack_t **stack, unsigned int line_number)
 {
-	int temp = 0;
-
 	if (stack == NULL
 		|| *stack == NULL
 		|| (*stack)->next == NULL)
@@ -16,8 +14,23 @@ void swap(stack_t **stack, unsigned int line_number)
 		fprintf(stderr, "L%d: can't swap, stack to short", line_number);
 		exit(EXIT_FAILURE);
 	}
+}
 
-	temp = (*stack)->n;
-	(*stack)->n = (*stack)->next->n;
-	(*stack)->next->n = temp;
+/**
+ * adds - adds the top 2 elements of the stack.
+ * @stack: the stack.
+ * @line_number: an int.
+ */
+void add(stack_t **stack, unsigned int line_number)
+{
+	if (stack == NULL
+		|| *stack == NULL
+		|| (*stack)->next == NULL)
+	{
+		free_stack(*stack);
+		fprintf(stderr, "L%d: can't add, stack to short", line_number);
+		exit(EXIT_FAILURE);
+	}
+	(*stack)->next->n += (*stack)->n;
+	pop(stack, line_number);
 }
