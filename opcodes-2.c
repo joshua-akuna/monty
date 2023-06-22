@@ -6,21 +6,23 @@
  */
 void swap(stack_t **stack, unsigned int line_number)
 {
-	int temp;
+	stack_t *temp;
+	int sum;
 
 	if (stack == NULL
 		|| *stack == NULL
 		|| (*stack)->next == NULL)
 	{
-		fprintf(stderr, "L%d: can't swap, stack to short\n", line_number);
+		fprintf(stderr, "L%d: can't swap, stack too short\n", line_number);
 		fclose(cls.stream);
 		free(cls.line);
 		free_stack(*stack);
 		exit(EXIT_FAILURE);
 	}
-	temp = (*stack)->n;
-	(*stack)->n = (*stack)->next->n;
-	(*stack)->next->n = temp;
+	temp = *stack;
+	sum = temp->n;
+	temp->n = temp->next->n;
+	temp->next->n = sum;
 }
 
 /**
