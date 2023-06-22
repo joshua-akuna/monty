@@ -50,6 +50,7 @@ int find_opcode(stack_t **stack, char *line, int num)
 		{"pall", pall},
 		{"pint", pint},
 		{"pop", pop},
+		{"swap", swap},
 		{"nop", nop},
 		{NULL, NULL},
 	};
@@ -67,7 +68,7 @@ int find_opcode(stack_t **stack, char *line, int num)
 			for (i = 0; opcodes[i].opcode; i++)
 			{
 				found = 0;
-				if (strncmp(opcodes[i].opcode, opcode, strlen(opcode)) == 0)
+				if (strcmp(opcodes[i].opcode, opcode) == 0)
 				{
 					opcodes[i].f(stack, num);
 					found = 1;
