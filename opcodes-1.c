@@ -8,19 +8,17 @@
  */
 void push(stack_t **stack, unsigned int line_number)
 {
-	char *line = NULL, *tok = NULL;
+	char *tok = cls.num, *line = cls.line;
 	int item = 0;
 	stack_t *node = *stack, *new_node = NULL;
 
-	line = get_line_by_number(line_number);
 	if (line)
 	{
-		tok = strtok(line, "\t \n");
-		tok = strtok(NULL, "\t \n");
-		if (tok == NULL || is_valid_num(tok) == 0)
+		if (cls.num == NULL || is_valid_num(cls.num) == 0)
 		{
 			fprintf(stderr, "L%d: usage: push integer\n", line_number);
 			free(line);
+			fclose(cls.stream);
 			free_stack(node);
 			exit(EXIT_FAILURE);
 		}
@@ -30,6 +28,7 @@ void push(stack_t **stack, unsigned int line_number)
 		{
 			fprintf(stderr, "Error: malloc failed\n");
 			free(line);
+			fclose(cls.stream);
 			free_stack(node);
 			exit(EXIT_FAILURE);
 		}
@@ -43,7 +42,6 @@ void push(stack_t **stack, unsigned int line_number)
 			new_node->next = node;
 			*stack = new_node;
 		}
-		free(line);
 	}
 }
 
@@ -76,6 +74,9 @@ void pint(stack_t **stack, unsigned int line_number)
 	if (stack == NULL || *stack == NULL)
 	{
 		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
+		fclose(cls.stream);
+		free(cls.line);
+		free_stack(*stack);
 		exit(EXIT_FAILURE);
 	}
 	printf("%d\n", (*stack)->n);

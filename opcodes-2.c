@@ -7,12 +7,15 @@
 void swap(stack_t **stack, unsigned int line_number)
 {
 	int temp;
+
 	if (stack == NULL
 		|| *stack == NULL
 		|| (*stack)->next == NULL)
 	{
-		free_stack(*stack);
 		fprintf(stderr, "L%d: can't swap, stack to short\n", line_number);
+		fclose(cls.stream);
+		free(cls.line);
+		free_stack(*stack);
 		exit(EXIT_FAILURE);
 	}
 	temp = (*stack)->n;
@@ -32,6 +35,8 @@ void add(stack_t **stack, unsigned int line_number)
 		|| (*stack)->next == NULL)
 	{
 		free_stack(*stack);
+		free(cls.line);
+		fclose(cls.stream);
 		fprintf(stderr, "L%d: can't add, stack to short\n", line_number);
 		exit(EXIT_FAILURE);
 	}

@@ -6,7 +6,6 @@
 #include <string.h>
 #include <unistd.h>
 
-extern char *filename;
 
 /**
  * struct stack_s - represents a node of a doubly linked list
@@ -39,9 +38,25 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+/**
+ * file - a string representing a file path.
+ * @stream: an open stream to a file.
+ * @line: a string that stores user input as a line.
+ * @num: a string of integers.
+ */
+typedef struct closeable_s
+{
+	char *file;
+	FILE *stream;
+	char *line;
+	char *num;
+} closeable_t;
+
+
+extern closeable_t cls;
 
 int read_file(stack_t **stack);
-int find_opcode(stack_t **stack, char *line, int num);
+int find_opcode(stack_t **stack, int num);
 int is_valid_num(char *num);
 char *get_line_by_number(unsigned int line_number);
 
