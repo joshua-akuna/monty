@@ -4,7 +4,6 @@
  * find_opcode - reads each line and process the line
  *	with the correct opcode function.
  * @stack: a stack_t type linked list.
- * @line: the string to process.
  * @num: the line number of line in the file.
  * Return: EXIT_SUCCESS if successful else EXIT_FAILURE.
  */
@@ -13,7 +12,7 @@ int find_opcode(stack_t **stack, int num)
 	instruction_t opcodes[] = {
 		{"push", push}, {"pall", pall}, {"pint", pint},
 		{"pop", pop}, {"swap", swap}, {"add", add},
-		{"nop", nop}, {NULL, NULL},
+		{"nop", nop}, {"sub", sub}, {NULL, NULL},
 	};
 	int i = 0, found;
 	char *opcode = NULL, *line = cls.line;

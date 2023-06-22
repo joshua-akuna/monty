@@ -39,7 +39,8 @@ typedef struct instruction_s
 } instruction_t;
 
 /**
- * file - a string representing a file path.
+ * struct closeable_s - stores the closeable resources.
+ * @file: a string representing a file path.
  * @stream: an open stream to a file.
  * @line: a string that stores user input as a line.
  * @num: a string of integers.
@@ -69,6 +70,7 @@ void nop(stack_t **stack, unsigned int line_number);
 void swap(stack_t **stack, unsigned int line_number);
 
 void add(stack_t **stack, unsigned int line_number);
+void sub(stack_t **stack, unsigned int line_number);
 
 stack_t *add_to_stack(stack_t **head, const int n);
 void free_stack(stack_t *head);
