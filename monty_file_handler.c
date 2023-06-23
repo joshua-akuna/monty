@@ -10,9 +10,9 @@
 int find_opcode(stack_t **stack, int num)
 {
 	instruction_t opcodes[] = {
-		{"push", push}, {"pall", pall}, {"pint", pint},
-		{"pop", pop}, {"swap", swap}, {"add", add},
-		{"nop", nop}, {"sub", sub}, {NULL, NULL},
+		{"push", push}, {"pall", pall}, {"pint", pint}, {"div", _div},
+		{"pop", pop}, {"swap", swap}, {"add", add}, {"mul", _mul},
+		{"nop", nop}, {"sub", sub}, {"mod", _mod}, {NULL, NULL},
 	};
 	int i = 0, found;
 	char *opcode = NULL, *line = cls.line;
