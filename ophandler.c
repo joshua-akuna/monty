@@ -24,6 +24,10 @@ int find_opcode(stack_t **stack, int num)
 		cls.num = strtok(NULL, "\t \n");
 		if (opcode[0] == '#' || strncmp(opcode, "nop", strlen(opcode)) == 0)
 			;
+		else if (strcmp(opcode, "queue") == 0)
+			cls.mode = QUEUE;
+		else if (strcmp(opcode, "stack") == 0)
+			cls.mode = STACK;
 		else
 		{
 			for (i = 0; opcodes[i].opcode; i++)
@@ -39,9 +43,8 @@ int find_opcode(stack_t **stack, int num)
 			if (!found)
 			{
 				fprintf(stderr, "L%d: unknown instruction %s\n", num, opcode);
-				free(line);
 				free_stack(*stack);
-				exit(EXIT_FAILURE);
+				free_resources();
 			}
 		}
 	}
@@ -87,4 +90,14 @@ void free_stack(stack_t *head)
 		return;
 	free_stack(head->next);
 	free(head);
+}
+
+/**
+ * free_resources - frees up all resources
+ */
+void free_resources(void)
+{
+	fclose(cls.stream);
+	free(cls.line);
+	exit(EXIT_FAILURE);
 }

@@ -8,39 +8,43 @@
  */
 void push(stack_t **stack, unsigned int line_number)
 {
-	char *tok = cls.num, *line = cls.line;
-	int item = 0;
 	stack_t *node = *stack, *new_node = NULL;
 
-	if (line)
+	if (cls.line)
 	{
 		if (cls.num == NULL || is_valid_num(cls.num) == 0)
 		{
 			fprintf(stderr, "L%d: usage: push integer\n", line_number);
-			free(line);
-			fclose(cls.stream);
 			free_stack(node);
-			exit(EXIT_FAILURE);
+			free_resources();
 		}
-		item = atoi(tok);
 		new_node = malloc(sizeof(stack_t));
 		if (new_node == NULL)
 		{
 			fprintf(stderr, "Error: malloc failed\n");
-			free(line);
-			fclose(cls.stream);
 			free_stack(node);
-			exit(EXIT_FAILURE);
+			free_resources();
 		}
-		new_node->n = item;
+		new_node->n = atoi(cls.num);
 		new_node->next = new_node->prev = NULL;
 		if (node == NULL)
 			*stack = new_node;
 		else
 		{
-			node->prev = new_node;
-			new_node->next = node;
-			*stack = new_node;
+			if (cls.mode == STACK)
+			{
+				node->prev = new_node;
+				new_node->next = node;
+				*stack = new_node;
+			}
+			else if (cls.mode == QUEUE)
+			{
+				node = *stack;
+				while (node->next != NULL)
+					node = node->next;
+				node->next = new_node;
+				new_node->prev = node;
+			}
 		}
 	}
 }

@@ -6,7 +6,8 @@
 #include <string.h>
 #include <unistd.h>
 
-
+#define STACK 0
+#define QUEUE 1
 /**
  * struct stack_s - represents a node of a doubly linked list
  *	(a stack or queue).
@@ -44,6 +45,7 @@ typedef struct instruction_s
  * @stream: an open stream to a file.
  * @line: a string that stores user input as a line.
  * @num: a string of integers.
+ * @mode: defines the current mode of operation. STACK or QUEUE
  */
 typedef struct closeable_s
 {
@@ -51,6 +53,7 @@ typedef struct closeable_s
 	FILE *stream;
 	char *line;
 	char *num;
+	int mode;
 } closeable_t;
 
 
@@ -58,6 +61,7 @@ extern closeable_t cls;
 
 int find_opcode(stack_t **stack, int num);
 int is_valid_num(char *num);
+void free_resources(void);
 
 void pall(stack_t **stack, unsigned int line_number);
 void pint(stack_t **stack, unsigned int line_number);

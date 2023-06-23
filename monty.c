@@ -1,6 +1,6 @@
 #include "monty.h"
 
-closeable_t cls = {NULL, NULL, NULL, NULL};
+closeable_t cls = {NULL, NULL, NULL, NULL, 0};
 /**
  * main - the monty program
  * @argv: an arrays of strings passed from the command line.
