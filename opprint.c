@@ -76,3 +76,25 @@ void pchar(stack_t **stack, unsigned int line_number)
 	}
 	printf("%c\n", (*stack)->n);
 }
+
+/**
+ * pstr - prints the string starting at the top of the stack
+ *	followed by a new line.
+ * @stack: a stack_t type linked list.
+ * @line_number: the line number of the line of string
+ *	from the file whose commands will be processed.
+ */
+void pstr(stack_t **stack, unsigned int line_number)
+{
+	stack_t *node = *stack;
+
+	(void)line_number;
+	while (stack && node)
+	{
+		if (node->n <= 0 || node->n > 127)
+			break;
+		printf("%c", (node)->n);
+		node = node->next;
+	}
+	printf("\n");
+}
