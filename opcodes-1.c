@@ -46,43 +46,6 @@ void push(stack_t **stack, unsigned int line_number)
 }
 
 /**
- * pall - prints all the integers of the linked list.
- * @stack: a stack_t type linked list.
- * @line_number: the line number of the line of string
- *	from the file whose commands will be processed.
- */
-void pall(stack_t **stack, unsigned int line_number)
-{
-	stack_t *node = *stack;
-
-	(void)line_number;
-	while (node)
-	{
-		printf("%d\n", node->n);
-		node = node->next;
-	}
-}
-
-/**
- * pint - prints the value at the top of the stack.
- * @stack: a stack_t type linked list.
- * @line_number: the line number of the line of string
- *	from the file whose commands will be processed.
- */
-void pint(stack_t **stack, unsigned int line_number)
-{
-	if (stack == NULL || *stack == NULL)
-	{
-		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
-		fclose(cls.stream);
-		free(cls.line);
-		free_stack(*stack);
-		exit(EXIT_FAILURE);
-	}
-	printf("%d\n", (*stack)->n);
-}
-
-/**
  * pop - removes the top element of the stack.
  * @stack: a stack_t type linked list.
  * @line_number: the line number of the line of string
@@ -102,13 +65,27 @@ void pop(stack_t **stack, unsigned int line_number)
 }
 
 /**
- * nop - does nothing.
- * @stack: a stack_t type linked list.
- * @line_number: the line number of the line of string
- *	from the file whose commands will be processed.
+ * swap - swaps the two top elements of the stack.
+ * @stack: the stack.
+ * @line_number: an int.
  */
-void nop(stack_t **stack, unsigned int line_number)
+void swap(stack_t **stack, unsigned int line_number)
 {
-	(void)stack;
-	(void)line_number;
+	stack_t *temp;
+	int sum;
+
+	if (stack == NULL
+		|| *stack == NULL
+		|| (*stack)->next == NULL)
+	{
+		fprintf(stderr, "L%d: can't swap, stack too short\n", line_number);
+		fclose(cls.stream);
+		free(cls.line);
+		free_stack(*stack);
+		exit(EXIT_FAILURE);
+	}
+	temp = *stack;
+	sum = temp->n;
+	temp->n = temp->next->n;
+	temp->next->n = sum;
 }
