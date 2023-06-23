@@ -89,3 +89,30 @@ void swap(stack_t **stack, unsigned int line_number)
 	temp->n = temp->next->n;
 	temp->next->n = sum;
 }
+
+/**
+ * rotl - moves the current top node to the bottom of the 
+ *	stack and the second top node to the top.
+ * @stack: the stack.
+ * @line_number: the line number of the current command in the file.
+ */
+void rotl(stack_t **stack, unsigned int line_number)
+{
+	stack_t *temp = NULL;
+	stack_t *last = NULL;
+
+	(void)line_number;
+	if (stack && *stack && (*stack)->next)
+	{
+		temp = *stack;
+		*stack = (*stack)->next;
+		(*stack)->prev = NULL;
+		last = *stack;
+
+		while (last->next != NULL)
+			last = last->next;
+		last->next = temp;
+		temp->prev = last;
+		temp->next = NULL;
+	}
+}
