@@ -48,3 +48,31 @@ void nop(stack_t **stack, unsigned int line_number)
 	(void)stack;
 	(void)line_number;
 }
+
+/**
+ * pchar - prints the char at the top of the stack
+ *	followed by a new line.
+ * @stack: a stack_t type linked list.
+ * @line_number: the line number of the line of string
+ *	from the file whose commands will be processed.
+ */
+void pchar(stack_t **stack, unsigned int line_number)
+{
+	if (stack == NULL || *stack == NULL)
+	{
+		fprintf(stderr, "L%d: can't pchar, stack empty\n", line_number);
+		fclose(cls.stream);
+		free(cls.line);
+		free_stack(*stack);
+		exit(EXIT_FAILURE);
+	}
+	if ((*stack)->n < 0 || (*stack)->n > 127)
+	{
+		fprintf(stderr, "L%d: can't pchar, value out of range\n", line_number);
+		fclose(cls.stream);
+		free(cls.line);
+		free_stack(*stack);
+		exit(EXIT_FAILURE);
+	}
+	printf("%c\n", (*stack)->n);
+}
