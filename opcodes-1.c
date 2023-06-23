@@ -116,3 +116,37 @@ void rotl(stack_t **stack, unsigned int line_number)
 		temp->next = NULL;
 	}
 }
+
+/**
+ * rotr - rotates the stack, the top element of the stack
+ *	becomes the bottom and vice versa.
+ * @stack: the stack.
+ * @line_number: the line number of the current command in the file.
+ */
+void rotr(stack_t **stack, unsigned int line_number)
+{
+	int num1 = 1, num2 = 1, temp = 0;
+	stack_t *top = NULL, *end = NULL;
+
+	(void)line_number;
+	if (stack && *stack && (*stack)->next)
+	{
+		top = end = *stack;
+		while (end->next != NULL)
+		{
+			num2++;
+			end = end->next;
+		}
+
+		while (num1 < num2)
+		{
+			temp = top->n;
+			top->n = end->n;
+			end->n = temp;
+			top = top->next;
+			end = end->prev;
+			num1++;
+			num2--;
+		}
+	}
+}
